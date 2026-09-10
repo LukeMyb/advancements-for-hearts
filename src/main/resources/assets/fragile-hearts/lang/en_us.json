@@ -1,0 +1,8 @@
+{
+  "message.fragile-hearts.morning_consumed": "Morning has broken. Consumed 1 hidden HP. Remaining: %s",
+  "message.fragile-hearts.morning_decreased": "Morning has broken. Max HP decreased.",
+  "message.fragile-hearts.spawner_restored": "Spawner destroyed! Max HP restored.",
+  "message.fragile-hearts.spawner_gained": "Spawner destroyed! Gained a hidden HP stock. Remaining: %s",
+  "message.fragile-hearts.spawner_maxed": "Spawner destroyed, but hidden HP is already at max (4).",
+  "message.fragile-hearts.survival_begun": "[Fragile Hearts] The survival of fragile life has begun."
+}

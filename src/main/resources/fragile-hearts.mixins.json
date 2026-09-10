@@ -1,0 +1,17 @@
+{
+	"required": true,
+	"package": "com.example.fragile_hearts.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"PlayerEntityMixin",
+		"PlayerManagerMixin",
+		"InGameHudMixin",
+		"ServerPlayerEntityMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}
