@@ -1,6 +1,6 @@
-package com.example.fragile_hearts.mixin;
+package com.example.advancements_for_hearts.mixin;
 
-import com.example.fragile_hearts.FragileHeartsPlayer;
+import com.example.advancements_for_hearts.AdvancementsForHeartsPlayer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -20,16 +20,16 @@ public abstract class InGameHudMixin extends DrawableHelper {
     private MinecraftClient client;
 
     // 3つのテクスチャをそれぞれ定義
-    private static final Identifier EMPTY_HEART = new Identifier("fragile-hearts", "textures/gui/empty_heart.png");
-    private static final Identifier HALF_HEART = new Identifier("fragile-hearts", "textures/gui/half_heart.png");
-    private static final Identifier FULL_HEART = new Identifier("fragile-hearts", "textures/gui/full_heart.png");
+    private static final Identifier EMPTY_HEART = new Identifier("advancements-for-hearts", "textures/gui/empty_heart.png");
+    private static final Identifier HALF_HEART = new Identifier("advancements-for-hearts", "textures/gui/half_heart.png");
+    private static final Identifier FULL_HEART = new Identifier("advancements-for-hearts", "textures/gui/full_heart.png");
 
     @Inject(method = "renderStatusBars", at = @At("TAIL"))
     private void renderHiddenHearts(MatrixStack matrices, CallbackInfo ci) {
         PlayerEntity player = this.client.player;
         if (player == null) return;
 
-        FragileHeartsPlayer fhPlayer = (FragileHeartsPlayer) player;
+        AdvancementsForHeartsPlayer fhPlayer = (AdvancementsForHeartsPlayer) player;
         int hiddenHp = fhPlayer.getHiddenHp();
 
         int scaledWidth = this.client.getWindow().getScaledWidth();

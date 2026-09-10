@@ -1,4 +1,4 @@
-package com.example.fragile_hearts;
+package com.example.advancements_for_hearts;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -11,8 +11,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.world.World;
 
-public class FragileHearts implements ModInitializer {
-    public static final String MOD_ID = "fragile-hearts";
+public class AdvancementsForHearts implements ModInitializer {
+    public static final String MOD_ID = "advancements-for-hearts";
     public static final net.minecraft.util.Identifier SYNC_HIDDEN_HP_PACKET = new net.minecraft.util.Identifier(MOD_ID, "sync_hidden_hp");
 
     // 前回の時間を記録する変数（朝が来たかの判定用）
@@ -20,7 +20,7 @@ public class FragileHearts implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        System.out.println("Fragile Hearts initialized!");
+        System.out.println("Advancements For Hearts initialized!");
 
 
 
@@ -41,13 +41,13 @@ public class FragileHearts implements ModInitializer {
                 if (isNewMorning) {
                     // サーバー全体のプレイヤーを取得する処理
                     for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-                        FragileHeartsPlayer fhPlayer = (FragileHeartsPlayer) player;
+                        AdvancementsForHeartsPlayer fhPlayer = (AdvancementsForHeartsPlayer) player;
                         int hiddenHp = fhPlayer.getHiddenHp();
 
                         if (hiddenHp > 0) {
                             // 猶予ストックがある場合は消費のみ
                             fhPlayer.removeHiddenHp(1);
-                            player.sendMessage(new net.minecraft.text.TranslatableText("message.fragile-hearts.morning_consumed", fhPlayer.getHiddenHp()).formatted(net.minecraft.util.Formatting.YELLOW), false);
+                            player.sendMessage(new net.minecraft.text.TranslatableText("message.advancements-for-hearts.morning_consumed", fhPlayer.getHiddenHp()).formatted(net.minecraft.util.Formatting.YELLOW), false);
                         } else {
                             // ストックがない場合、最大HPを1（ハート半分）減少。下限は1
                             EntityAttributeInstance maxHealthAttr = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
@@ -59,7 +59,7 @@ public class FragileHearts implements ModInitializer {
                                     if (player.getHealth() > player.getMaxHealth()) {
                                         player.setHealth(player.getMaxHealth());
                                     }
-                                    player.sendMessage(new net.minecraft.text.TranslatableText("message.fragile-hearts.morning_decreased").formatted(net.minecraft.util.Formatting.RED), false);
+                                    player.sendMessage(new net.minecraft.text.TranslatableText("message.advancements-for-hearts.morning_decreased").formatted(net.minecraft.util.Formatting.RED), false);
                                 }
                             }
                         }
@@ -78,15 +78,15 @@ public class FragileHearts implements ModInitializer {
                     if (currentMaxHealth < 6.0D) {
                         // 最大HPが6（ハート3つ）未満なら回復
                         maxHealthAttr.setBaseValue(Math.min(6.0D, currentMaxHealth + 1.0D));
-                        player.sendMessage(new net.minecraft.text.TranslatableText("message.fragile-hearts.spawner_restored").formatted(net.minecraft.util.Formatting.GREEN), false);
+                        player.sendMessage(new net.minecraft.text.TranslatableText("message.advancements-for-hearts.spawner_restored").formatted(net.minecraft.util.Formatting.GREEN), false);
                     } else {
                         // 最大HPが満タンなら隠れHPストックを増やす
-                        FragileHeartsPlayer fhPlayer = (FragileHeartsPlayer) player;
+                        AdvancementsForHeartsPlayer fhPlayer = (AdvancementsForHeartsPlayer) player;
                         if (fhPlayer.getHiddenHp() < 4) {
                             fhPlayer.addHiddenHp(1);
-                            player.sendMessage(new net.minecraft.text.TranslatableText("message.fragile-hearts.spawner_gained", fhPlayer.getHiddenHp()).formatted(net.minecraft.util.Formatting.AQUA), false);
+                            player.sendMessage(new net.minecraft.text.TranslatableText("message.advancements-for-hearts.spawner_gained", fhPlayer.getHiddenHp()).formatted(net.minecraft.util.Formatting.AQUA), false);
                         } else {
-                            player.sendMessage(new net.minecraft.text.TranslatableText("message.fragile-hearts.spawner_maxed").formatted(net.minecraft.util.Formatting.GRAY), false);
+                            player.sendMessage(new net.minecraft.text.TranslatableText("message.advancements-for-hearts.spawner_maxed").formatted(net.minecraft.util.Formatting.GRAY), false);
                         }
                     }
                 }

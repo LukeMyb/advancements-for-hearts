@@ -1,8 +1,8 @@
 {
 	"schemaVersion": 1,
-	"id": "fragile-hearts",
+	"id": "advancements-for-hearts",
 	"version": "${version}",
-	"name": "Fragile Hearts",
+	"name": "Advancements For Hearts",
 	"description": "Reduces max HP on every sunrise. Break spawners to survive.",
 	"authors": [
 		"Luke"
@@ -11,18 +11,18 @@
 		"sources": "https://github.com/LukeMyb"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/fragile-hearts/icon.png",
+	"icon": "assets/advancements-for-hearts/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.fragile_hearts.FragileHearts"
+			"com.example.advancements_for_hearts.AdvancementsForHearts"
 		],
 		"client": [
-			"com.example.fragile_hearts.FragileHeartsClient"
+			"com.example.advancements_for_hearts.AdvancementsForHeartsClient"
 		]
 	},
 	"mixins": [
-		"fragile-hearts.mixins.json"
+		"advancements-for-hearts.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.19.0",

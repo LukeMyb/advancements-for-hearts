@@ -1,6 +1,6 @@
-package com.example.fragile_hearts.mixin;
+package com.example.advancements_for_hearts.mixin;
 
-import com.example.fragile_hearts.FragileHeartsPlayer;
+import com.example.advancements_for_hearts.AdvancementsForHeartsPlayer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.network.ClientConnection;
@@ -17,12 +17,12 @@ public class PlayerManagerMixin {
 
     @Inject(method = "onPlayerConnect", at = @At("TAIL"))
     private void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
-        FragileHeartsPlayer fhPlayer = (FragileHeartsPlayer) player;
+        AdvancementsForHeartsPlayer fhPlayer = (AdvancementsForHeartsPlayer) player;
 
         // ログイン時に現在のhiddenHpをクライアントへ同期
         net.minecraft.network.PacketByteBuf buf = new net.minecraft.network.PacketByteBuf(io.netty.buffer.Unpooled.buffer());
         buf.writeInt(fhPlayer.getHiddenHp());
-        net.fabricmc.fabric.api.network.ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, com.example.fragile_hearts.FragileHearts.SYNC_HIDDEN_HP_PACKET, buf);
+        net.fabricmc.fabric.api.network.ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, com.example.advancements_for_hearts.AdvancementsForHearts.SYNC_HIDDEN_HP_PACKET, buf);
 
         if (!fhPlayer.isHpInitialized()) {
             EntityAttributeInstance maxHealthAttr = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
@@ -31,7 +31,7 @@ public class PlayerManagerMixin {
                 player.setHealth(6.0F);
             }
             fhPlayer.setHpInitialized(true);
-            player.sendMessage(new net.minecraft.text.TranslatableText("message.fragile-hearts.survival_begun").formatted(net.minecraft.util.Formatting.LIGHT_PURPLE), false);
+            player.sendMessage(new net.minecraft.text.TranslatableText("message.advancements-for-hearts.survival_begun").formatted(net.minecraft.util.Formatting.LIGHT_PURPLE), false);
         }
     }
 }

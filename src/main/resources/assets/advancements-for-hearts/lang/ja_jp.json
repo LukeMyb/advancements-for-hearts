@@ -1,0 +1,8 @@
+{
+  "message.advancements-for-hearts.morning_consumed": "朝が来ました。隠れHPを1消費しました。残り: %s",
+  "message.advancements-for-hearts.morning_decreased": "朝が来ました。最大HPが減少しました。",
+  "message.advancements-for-hearts.spawner_restored": "スポナーを破壊！最大HPが回復しました。",
+  "message.advancements-for-hearts.spawner_gained": "スポナーを破壊！隠れHPストックを獲得しました。残り: %s",
+  "message.advancements-for-hearts.spawner_maxed": "スポナーを破壊しましたが、隠れHPは既に上限(4)です。",
+  "message.advancements-for-hearts.survival_begun": "[Advancements For Hearts] 脆い命のサバイバルが始まりました。"
+}

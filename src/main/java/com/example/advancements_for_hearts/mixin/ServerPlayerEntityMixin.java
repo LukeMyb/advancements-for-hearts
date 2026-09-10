@@ -1,7 +1,7 @@
-package com.example.fragile_hearts.mixin;
+package com.example.advancements_for_hearts.mixin;
 
-import com.example.fragile_hearts.FragileHeartsPlayer;
-import com.example.fragile_hearts.FragileHearts;
+import com.example.advancements_for_hearts.AdvancementsForHeartsPlayer;
+import com.example.advancements_for_hearts.AdvancementsForHearts;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -19,8 +19,8 @@ public class ServerPlayerEntityMixin {
     @Inject(method = "copyFrom", at = @At("TAIL"))
     public void copyFrom(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
         // 新しいプレイヤー（自分自身）と古いプレイヤー
-        FragileHeartsPlayer newFhPlayer = (FragileHeartsPlayer) this;
-        FragileHeartsPlayer oldFhPlayer = (FragileHeartsPlayer) oldPlayer;
+        AdvancementsForHeartsPlayer newFhPlayer = (AdvancementsForHeartsPlayer) this;
+        AdvancementsForHeartsPlayer oldFhPlayer = (AdvancementsForHeartsPlayer) oldPlayer;
 
         // 1. カスタムデータの引き継ぎ
         newFhPlayer.setHiddenHp(oldFhPlayer.getHiddenHp());
@@ -42,6 +42,6 @@ public class ServerPlayerEntityMixin {
         // 3. クライアントへ同期パケットを送信
         PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
         buf.writeInt(newFhPlayer.getHiddenHp());
-        ServerSidePacketRegistry.INSTANCE.sendToPlayer((ServerPlayerEntity) (Object) this, FragileHearts.SYNC_HIDDEN_HP_PACKET, buf);
+        ServerSidePacketRegistry.INSTANCE.sendToPlayer((ServerPlayerEntity) (Object) this, AdvancementsForHearts.SYNC_HIDDEN_HP_PACKET, buf);
     }
 }

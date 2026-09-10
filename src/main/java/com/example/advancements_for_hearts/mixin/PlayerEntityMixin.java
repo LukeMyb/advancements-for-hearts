@@ -1,6 +1,6 @@
-package com.example.fragile_hearts.mixin;
+package com.example.advancements_for_hearts.mixin;
 
-import com.example.fragile_hearts.FragileHeartsPlayer;
+import com.example.advancements_for_hearts.AdvancementsForHeartsPlayer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
-public class PlayerEntityMixin implements FragileHeartsPlayer {
+public class PlayerEntityMixin implements AdvancementsForHeartsPlayer {
 
     // 隠れHPストックの変数（上限4）
     private int hiddenHp = 0;
@@ -31,7 +31,7 @@ public class PlayerEntityMixin implements FragileHeartsPlayer {
         if (!player.world.isClient && player instanceof net.minecraft.server.network.ServerPlayerEntity) {
             net.minecraft.network.PacketByteBuf buf = new net.minecraft.network.PacketByteBuf(io.netty.buffer.Unpooled.buffer());
             buf.writeInt(this.hiddenHp);
-            net.fabricmc.fabric.api.network.ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, com.example.fragile_hearts.FragileHearts.SYNC_HIDDEN_HP_PACKET, buf);
+            net.fabricmc.fabric.api.network.ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, com.example.advancements_for_hearts.AdvancementsForHearts.SYNC_HIDDEN_HP_PACKET, buf);
         }
     }
 
@@ -55,20 +55,20 @@ public class PlayerEntityMixin implements FragileHeartsPlayer {
     // ワールドを抜けても消えないようにNBTへ保存
     @Inject(method = "writeCustomDataToTag", at = @At("RETURN"))
     public void writeCustomDataToTag(CompoundTag tag, CallbackInfo ci) {
-        tag.putInt("FragileHearts_HiddenHp", this.hiddenHp);
+        tag.putInt("AdvancementsForHearts_HiddenHp", this.hiddenHp);
         // フラグを保存
-        tag.putBoolean("FragileHearts_HpInitialized", this.hpInitialized);
+        tag.putBoolean("AdvancementsForHearts_HpInitialized", this.hpInitialized);
     }
 
     // ワールドに入った時のNBT読み込み
     @Inject(method = "readCustomDataFromTag", at = @At("RETURN"))
     public void readCustomDataFromTag(CompoundTag tag, CallbackInfo ci) {
-        if (tag.contains("FragileHearts_HiddenHp")) {
-            this.hiddenHp = tag.getInt("FragileHearts_HiddenHp");
+        if (tag.contains("AdvancementsForHearts_HiddenHp")) {
+            this.hiddenHp = tag.getInt("AdvancementsForHearts_HiddenHp");
         }
         // フラグを読み込み
-        if (tag.contains("FragileHearts_HpInitialized")) {
-            this.hpInitialized = tag.getBoolean("FragileHearts_HpInitialized");
+        if (tag.contains("AdvancementsForHearts_HpInitialized")) {
+            this.hpInitialized = tag.getBoolean("AdvancementsForHearts_HpInitialized");
         }
     }
 }

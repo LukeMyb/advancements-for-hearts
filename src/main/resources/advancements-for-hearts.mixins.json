@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "com.example.fragile_hearts.mixin",
+	"package": "com.example.advancements_for_hearts.mixin",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
 		"PlayerEntityMixin",

@@ -1,8 +1,0 @@
-{
-  "message.fragile-hearts.morning_consumed": "朝が来ました。隠れHPを1消費しました。残り: %s",
-  "message.fragile-hearts.morning_decreased": "朝が来ました。最大HPが減少しました。",
-  "message.fragile-hearts.spawner_restored": "スポナーを破壊！最大HPが回復しました。",
-  "message.fragile-hearts.spawner_gained": "スポナーを破壊！隠れHPストックを獲得しました。残り: %s",
-  "message.fragile-hearts.spawner_maxed": "スポナーを破壊しましたが、隠れHPは既に上限(4)です。",
-  "message.fragile-hearts.survival_begun": "[Fragile Hearts] 脆い命のサバイバルが始まりました。"
-}

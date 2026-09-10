@@ -1,7 +1,7 @@
-package com.example.fragile_hearts;
+package com.example.advancements_for_hearts;
 
 // プレイヤーに隠れHPを保持させるためのインターフェース
-public interface FragileHeartsPlayer {
+public interface AdvancementsForHeartsPlayer {
     int getHiddenHp();
     void setHiddenHp(int hp);
     void addHiddenHp(int amount);
