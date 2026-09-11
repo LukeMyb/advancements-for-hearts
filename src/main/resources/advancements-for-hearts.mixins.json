@@ -1,17 +1,18 @@
 {
-	"required": true,
-	"package": "com.example.advancements_for_hearts.mixin",
-	"compatibilityLevel": "JAVA_8",
-	"mixins": [
-		"PlayerEntityMixin",
-		"PlayerManagerMixin",
-		"InGameHudMixin",
-		"ServerPlayerEntityMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
-	}
+    "required": true,
+    "package": "com.example.advancements_for_hearts.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "mixins": [
+        "PlayerEntityMixin",
+        "PlayerManagerMixin",
+        "InGameHudMixin",
+        "ServerPlayerEntityMixin",
+        "PlayerAdvancementTrackerMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
+    }
 }
