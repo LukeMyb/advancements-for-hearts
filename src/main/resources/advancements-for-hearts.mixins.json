@@ -4,7 +4,6 @@
     "compatibilityLevel": "JAVA_8",
     "mixins": [
         "PlayerEntityMixin",
-        "PlayerManagerMixin",
         "InGameHudMixin",
         "ServerPlayerEntityMixin",
         "PlayerAdvancementTrackerMixin"
