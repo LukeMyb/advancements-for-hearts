@@ -149,6 +149,10 @@ public class AdvancementsForHearts implements ModInitializer {
                         if (maxHealthAttr != null) {
                             double currentMaxHealth = maxHealthAttr.getBaseValue();
                             double newMaxHealth = currentMaxHealth - 1.0D;
+                            // 0未満にはならないように制限する
+                            if (newMaxHealth < 0.0D) {
+                                newMaxHealth = 0.0D;
+                            }
                             maxHealthAttr.setBaseValue(newMaxHealth);
                             if (player.getHealth() > player.getMaxHealth()) {
                                 player.setHealth(player.getMaxHealth());
@@ -157,6 +161,12 @@ public class AdvancementsForHearts implements ModInitializer {
                                 player.kill();
                             }
                         }
+                    }
+                    
+                    // 常に最大HPを監視し、0以下の場合はリスポーン直後でも即座にキルする
+                    EntityAttributeInstance maxHealthAttr = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+                    if (maxHealthAttr != null && maxHealthAttr.getBaseValue() <= 0.0D) {
+                        player.kill();
                     }
 
                 }
