@@ -28,6 +28,21 @@ public abstract class InGameHudMixin extends DrawableHelper {
     @Inject(method = "render", at = @At("TAIL"))
     public void renderCustomTimer(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
         if (this.customTimerMessageTime > 0 && this.customTimerMessage != null) {
+            // クライアント側で毎フレームIGTを取得し、文字列を再生成することで視覚的なラグ(数フレームのズレ)を完全に無くす
+            long igt = com.example.advancements_for_hearts.AdvancementsForHearts.getSpeedRunIGT();
+            if (igt >= 0) {
+                PlayerEntity player = this.client.player;
+                if (player != null) {
+                    net.minecraft.entity.attribute.EntityAttributeInstance attr = player.getAttributeInstance(net.minecraft.entity.attribute.EntityAttributes.GENERIC_MAX_HEALTH);
+                    if (attr != null) {
+                        int maxHp = (int) attr.getBaseValue();
+                        int remainingMs = (int) (30000 - (igt % 30000));
+                        int remainingSeconds = (int) Math.ceil(remainingMs / 1000.0);
+                        this.customTimerMessage = new net.minecraft.text.TranslatableText("message.advancements-for-hearts.action_bar_timer", maxHp, remainingSeconds).formatted(net.minecraft.util.Formatting.WHITE);
+                    }
+                }
+            }
+            
             int scaledWidth = this.client.getWindow().getScaledWidth();
             int scaledHeight = this.client.getWindow().getScaledHeight();
             

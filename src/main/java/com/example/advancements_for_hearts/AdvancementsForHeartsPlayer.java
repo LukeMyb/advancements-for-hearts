@@ -8,6 +8,12 @@ public interface AdvancementsForHeartsPlayer {
     void removeHiddenHp(int amount);
 
     int getPenaltyTimerTicks();
+    int getPenaltyTimerMs();
+    void setPenaltyTimerMs(int ms);
+    long getLastIGT();
+    long getLastPenaltyPeriod();
+    void setLastPenaltyPeriod(long period);
+    void setLastIGT(long igt);
     void setPenaltyTimerTicks(int ticks);
 
     // 期化完了フラグのメソッド

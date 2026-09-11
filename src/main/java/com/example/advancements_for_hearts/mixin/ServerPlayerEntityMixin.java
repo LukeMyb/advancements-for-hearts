@@ -26,6 +26,9 @@ public class ServerPlayerEntityMixin {
         newFhPlayer.setHiddenHp(oldFhPlayer.getHiddenHp());
         newFhPlayer.setHpInitialized(oldFhPlayer.isHpInitialized());
         newFhPlayer.setPenaltyTimerTicks(oldFhPlayer.getPenaltyTimerTicks());
+        newFhPlayer.setPenaltyTimerMs(oldFhPlayer.getPenaltyTimerMs());
+        newFhPlayer.setLastIGT(oldFhPlayer.getLastIGT());
+        newFhPlayer.setLastPenaltyPeriod(oldFhPlayer.getLastPenaltyPeriod());
 
         // 2. 最大HPの引き継ぎ
         EntityAttributeInstance oldMaxHealth = oldPlayer.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
