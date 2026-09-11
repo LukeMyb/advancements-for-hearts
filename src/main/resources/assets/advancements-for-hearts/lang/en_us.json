@@ -4,5 +4,6 @@
   "message.advancements-for-hearts.spawner_restored": "Spawner destroyed! Max HP restored.",
   "message.advancements-for-hearts.spawner_gained": "Spawner destroyed! Gained a hidden HP stock. Remaining: %s",
   "message.advancements-for-hearts.spawner_maxed": "Spawner destroyed, but hidden HP is already at max (4).",
-  "message.advancements-for-hearts.survival_begun": "[Advancements For Hearts] The survival of fragile life has begun."
+  "message.advancements-for-hearts.survival_begun": "[Advancements For Hearts] The survival of fragile life has begun.",
+  "message.advancements-for-hearts.action_bar_timer": "[Max: %s] Next decrease in: %ss"
 }

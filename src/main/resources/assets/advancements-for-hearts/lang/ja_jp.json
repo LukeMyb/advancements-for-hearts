@@ -4,5 +4,6 @@
   "message.advancements-for-hearts.spawner_restored": "スポナーを破壊！最大HPが回復しました。",
   "message.advancements-for-hearts.spawner_gained": "スポナーを破壊！隠れHPストックを獲得しました。残り: %s",
   "message.advancements-for-hearts.spawner_maxed": "スポナーを破壊しましたが、隠れHPは既に上限(4)です。",
-  "message.advancements-for-hearts.survival_begun": "[Advancements For Hearts] 脆い命のサバイバルが始まりました。"
+  "message.advancements-for-hearts.survival_begun": "[Advancements For Hearts] 脆い命のサバイバルが始まりました。",
+  "message.advancements-for-hearts.action_bar_timer": "[上限: %s] 次の減少まで: %s秒"
 }

@@ -15,9 +15,43 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
 public abstract class InGameHudMixin extends DrawableHelper {
+    @Inject(method = "setOverlayMessage", at = @At("HEAD"), cancellable = true)
+    public void onSetOverlayMessage(net.minecraft.text.Text message, boolean tinted, CallbackInfo ci) {
+        String str = message.getString();
+        if (str.contains("[上限:") || str.contains("[Max:")) {
+            this.customTimerMessage = message;
+            this.customTimerMessageTime = 60;
+            ci.cancel();
+        }
+    }
+
+    @Inject(method = "render", at = @At("TAIL"))
+    public void renderCustomTimer(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
+        if (this.customTimerMessageTime > 0 && this.customTimerMessage != null) {
+            int scaledWidth = this.client.getWindow().getScaledWidth();
+            int scaledHeight = this.client.getWindow().getScaledHeight();
+            
+            // Vanilla is at scaledHeight - 68. Lower it a bit to scaledHeight - 59.
+            int y = scaledHeight - 59;
+            int x = (scaledWidth - this.client.textRenderer.getWidth(this.customTimerMessage)) / 2;
+            
+            this.client.textRenderer.drawWithShadow(matrices, this.customTimerMessage, (float)x, (float)y, 0xFFFFFF);
+        }
+    }
+    
+    @Inject(method = "tick", at = @At("TAIL"))
+    public void onTick(CallbackInfo ci) {
+        if (this.customTimerMessageTime > 0) {
+            this.customTimerMessageTime--;
+        }
+    }
+
 
     @Shadow
     private MinecraftClient client;
+
+    private net.minecraft.text.Text customTimerMessage;
+    private int customTimerMessageTime;
 
     // 3つのテクスチャをそれぞれ定義
     private static final Identifier EMPTY_HEART = new Identifier("advancements-for-hearts", "textures/gui/empty_heart.png");

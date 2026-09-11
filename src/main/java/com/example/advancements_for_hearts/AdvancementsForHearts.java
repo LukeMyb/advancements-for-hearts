@@ -104,6 +104,17 @@ public class AdvancementsForHearts implements ModInitializer {
                         }
                     }
                     fhPlayer.setPenaltyTimerTicks(ticks);
+                    // アクションバーへタイマーを表示（20Tick=1秒ごとに更新）
+                    if (ticks % 20 == 0) {
+                        int remainingTicks = 600 - ticks;
+                        int remainingSeconds = (int) Math.ceil(remainingTicks / 20.0);
+                        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+                        if (attr != null) {
+                            int maxHp = (int) attr.getBaseValue();
+                            player.sendMessage(new net.minecraft.text.TranslatableText("message.advancements-for-hearts.action_bar_timer", maxHp, remainingSeconds).formatted(net.minecraft.util.Formatting.WHITE), true);
+                        }
+                    }
+
                 }
             }
         });
