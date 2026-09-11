@@ -24,14 +24,16 @@ public class PlayerManagerMixin {
         buf.writeInt(fhPlayer.getHiddenHp());
         net.fabricmc.fabric.api.network.ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, com.example.advancements_for_hearts.AdvancementsForHearts.SYNC_HIDDEN_HP_PACKET, buf);
 
+        /*
         if (!fhPlayer.isHpInitialized()) {
-            EntityAttributeInstance maxHealthAttr = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
-            if (maxHealthAttr != null) {
-                maxHealthAttr.setBaseValue(6.0D);
-                player.setHealth(6.0F);
-            }
-            fhPlayer.setHpInitialized(true);
-            player.sendMessage(new net.minecraft.text.TranslatableText("message.advancements-for-hearts.survival_begun").formatted(net.minecraft.util.Formatting.LIGHT_PURPLE), false);
-        }
+                    EntityAttributeInstance maxHealthAttr = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+                    if (maxHealthAttr != null) {
+                        maxHealthAttr.setBaseValue(20.0D); // Changed to default 20
+                        player.setHealth(20.0F);
+                    }
+                    fhPlayer.setHpInitialized(true);
+                    player.sendMessage(new net.minecraft.text.TranslatableText("message.advancements-for-hearts.survival_begun").formatted(net.minecraft.util.Formatting.LIGHT_PURPLE), false);
+                }
+        */
     }
 }

@@ -24,7 +24,8 @@ public class AdvancementsForHearts implements ModInitializer {
 
 
 
-        // 朝の検知とHP減少イベント
+        /*
+// 朝の検知とHP減少イベント
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             long timeOfDay = server.getOverworld().getTimeOfDay();
 
@@ -67,6 +68,44 @@ public class AdvancementsForHearts implements ModInitializer {
                 }
             }
             lastTimeOfDay = timeOfDay;
+        });
+*/
+
+        // 第1段階: 30秒(600Tick)ごとの最大HP減少とキル処理
+        ServerTickEvents.END_SERVER_TICK.register(server -> {
+            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+                // サバイバルモード・アドベンチャーモードなど、通常プレイ中のみタイマーを進めるのが理想だが、
+                // ひとまず全プレイヤーに対してTickを進める
+                if (player.isAlive() && !player.isCreative() && !player.isSpectator()) {
+                    AdvancementsForHeartsPlayer fhPlayer = (AdvancementsForHeartsPlayer) player;
+                    int ticks = fhPlayer.getPenaltyTimerTicks();
+                    ticks++;
+                    
+                    if (ticks >= 600) {
+                        ticks = 0;
+                        // 30秒経過したため、最大HPを1減らす
+                        EntityAttributeInstance maxHealthAttr = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+                        if (maxHealthAttr != null) {
+                            double currentMaxHealth = maxHealthAttr.getBaseValue();
+                            double newMaxHealth = currentMaxHealth - 1.0D;
+                            
+                            maxHealthAttr.setBaseValue(newMaxHealth);
+                            
+                            // 最大HPが減ったため、現在HPも調整
+                            if (player.getHealth() > player.getMaxHealth()) {
+                                player.setHealth(player.getMaxHealth());
+                            }
+                            
+                            // 0以下になったらキル
+                            if (newMaxHealth <= 0.0D) {
+                                // 死亡処理
+                                player.kill();
+                            }
+                        }
+                    }
+                    fhPlayer.setPenaltyTimerTicks(ticks);
+                }
+            }
         });
 
         // スポナー破壊イベント

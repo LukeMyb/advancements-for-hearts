@@ -17,6 +17,8 @@ public class PlayerEntityMixin implements AdvancementsForHeartsPlayer {
     // 初期化フラグ（初期値はfalse）
     private boolean hpInitialized = false;
 
+    private int penaltyTimerTicks = 0;
+
     @Override
     public int getHiddenHp() {
         return this.hiddenHp;
@@ -52,12 +54,19 @@ public class PlayerEntityMixin implements AdvancementsForHeartsPlayer {
         this.setHiddenHp(this.hiddenHp - amount);
     }
 
+    @Override
+    public int getPenaltyTimerTicks() { return this.penaltyTimerTicks; }
+
+    @Override
+    public void setPenaltyTimerTicks(int ticks) { this.penaltyTimerTicks = ticks; }
+
     // ワールドを抜けても消えないようにNBTへ保存
     @Inject(method = "writeCustomDataToTag", at = @At("RETURN"))
     public void writeCustomDataToTag(CompoundTag tag, CallbackInfo ci) {
         tag.putInt("AdvancementsForHearts_HiddenHp", this.hiddenHp);
         // フラグを保存
         tag.putBoolean("AdvancementsForHearts_HpInitialized", this.hpInitialized);
+        tag.putInt("AdvancementsForHearts_PenaltyTimerTicks", this.penaltyTimerTicks);
     }
 
     // ワールドに入った時のNBT読み込み
@@ -69,6 +78,9 @@ public class PlayerEntityMixin implements AdvancementsForHeartsPlayer {
         // フラグを読み込み
         if (tag.contains("AdvancementsForHearts_HpInitialized")) {
             this.hpInitialized = tag.getBoolean("AdvancementsForHearts_HpInitialized");
+        }
+        if (tag.contains("AdvancementsForHearts_PenaltyTimerTicks")) {
+            this.penaltyTimerTicks = tag.getInt("AdvancementsForHearts_PenaltyTimerTicks");
         }
     }
 }

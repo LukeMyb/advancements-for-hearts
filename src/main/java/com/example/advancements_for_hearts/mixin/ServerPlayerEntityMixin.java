@@ -25,6 +25,7 @@ public class ServerPlayerEntityMixin {
         // 1. カスタムデータの引き継ぎ
         newFhPlayer.setHiddenHp(oldFhPlayer.getHiddenHp());
         newFhPlayer.setHpInitialized(oldFhPlayer.isHpInitialized());
+        newFhPlayer.setPenaltyTimerTicks(oldFhPlayer.getPenaltyTimerTicks());
 
         // 2. 最大HPの引き継ぎ
         EntityAttributeInstance oldMaxHealth = oldPlayer.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);

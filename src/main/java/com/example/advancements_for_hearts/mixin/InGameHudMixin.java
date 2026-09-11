@@ -26,6 +26,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
 
     @Inject(method = "renderStatusBars", at = @At("TAIL"))
     private void renderHiddenHearts(MatrixStack matrices, CallbackInfo ci) {
+/*
         PlayerEntity player = this.client.player;
         if (player == null) return;
 
@@ -84,5 +85,6 @@ public abstract class InGameHudMixin extends DrawableHelper {
         }
         
         com.mojang.blaze3d.systems.RenderSystem.disableBlend();
+        */
     }
 }

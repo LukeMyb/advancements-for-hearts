@@ -7,6 +7,9 @@ public interface AdvancementsForHeartsPlayer {
     void addHiddenHp(int amount);
     void removeHiddenHp(int amount);
 
+    int getPenaltyTimerTicks();
+    void setPenaltyTimerTicks(int ticks);
+
     // 期化完了フラグのメソッド
     boolean isHpInitialized();
     void setHpInitialized(boolean initialized);
