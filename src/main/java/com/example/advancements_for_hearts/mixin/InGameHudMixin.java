@@ -46,8 +46,8 @@ public abstract class InGameHudMixin extends DrawableHelper {
             int scaledWidth = this.client.getWindow().getScaledWidth();
             int scaledHeight = this.client.getWindow().getScaledHeight();
             
-            // Vanilla is at scaledHeight - 68. Lower it a bit to scaledHeight - 59.
-            int y = scaledHeight - 59;
+            // Vanilla is at scaledHeight - 68. Overlaps with item names at -59, so we keep it at -68 (one line above item names).
+            int y = scaledHeight - 68;
             int x = (scaledWidth - this.client.textRenderer.getWidth(this.customTimerMessage)) / 2;
             
             this.client.textRenderer.drawWithShadow(matrices, this.customTimerMessage, (float)x, (float)y, 0xFFFFFF);
