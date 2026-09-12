@@ -1,6 +1,7 @@
 package com.example.advancements_for_hearts;
 
 import net.fabricmc.api.ModInitializer;
+import java.lang.reflect.Method;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -10,16 +11,34 @@ import net.minecraft.server.network.ServerPlayerEntity;
 public class AdvancementsForHearts implements ModInitializer {
     public static final String MOD_ID = "advancements-for-hearts";
 
-    // SpeedRunIGTのタイマーをリフレクションで取得するメソッド（依存関係不要）
-    public static long getSpeedRunIGT() {
+    private static boolean speedRunIgtLoaded = false;
+    private static Method getInstanceMethod = null;
+    private static Method getInGameTimeMethod = null;
+
+    // 起動時に一度だけリフレクションでメソッドをキャッシュする
+    public static void initSpeedRunIGT() {
         try {
             Class<?> timerClass = Class.forName("com.redlimerl.speedrunigt.timer.InGameTimer");
-            Object instance = timerClass.getMethod("getInstance").invoke(null);
+            getInstanceMethod = timerClass.getMethod("getInstance");
+            getInGameTimeMethod = timerClass.getMethod("getInGameTime");
+            speedRunIgtLoaded = true;
+            System.out.println("[Advancements For Hearts] SpeedRunIGT is loaded. Timer will be strictly synchronized.");
+        } catch (Exception e) {
+            speedRunIgtLoaded = false;
+            System.out.println("[Advancements For Hearts] SpeedRunIGT not found. Falling back to server-tick timer.");
+        }
+    }
+
+    // キャッシュされたメソッドを使って毎フレーム/毎Tick高速に呼び出す
+    public static long getSpeedRunIGT() {
+        if (!speedRunIgtLoaded) return -1L;
+        try {
+            Object instance = getInstanceMethod.invoke(null);
             if (instance != null) {
-                return (long) timerClass.getMethod("getInGameTime").invoke(instance);
+                return (long) getInGameTimeMethod.invoke(instance);
             }
         } catch (Exception e) {
-            // SpeedRunIGTが存在しない、または取得できない場合
+            // 実行時エラーが発生した場合はフォールバック
         }
         return -1L;
     }
@@ -27,6 +46,7 @@ public class AdvancementsForHearts implements ModInitializer {
     @Override
     public void onInitialize() {
         System.out.println("Advancements For Hearts initialized!");
+        initSpeedRunIGT();
 
         
         // 第1段階: 30秒(600Tick)ごとの最大HP減少とキル処理
